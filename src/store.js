@@ -3,7 +3,10 @@
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      nextCode: initState.list.length ? Math.max(...initState.list.map(item => item.code)) + 1 : 1
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -42,9 +45,17 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+      const newItem = {
+        code: this.state.nextCode,
+        title: 'Новая запись',
+        selected: false,
+        selectCount: 0 
+      };
+    
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, newItem],
+      nextCode: this.state.nextCode + 1
     });
   }
 
@@ -68,9 +79,18 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
-        }
-        return item;
+          const isSelected = !item.selected;
+          return {
+            ...item,
+            selected: isSelected,
+            selectCount: isSelected ? item.selectCount + 1 : item.selectCount
+          };
+        } else {
+          return {
+            ...item,
+            selected: false
+          };
+        } 
       }),
     });
   }
