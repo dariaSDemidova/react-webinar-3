@@ -26,3 +26,9 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getPluralForm(number) {
+  if (number % 10 === 1 && number % 100 !== 11) return 'раз';
+  if ([2, 3, 4].includes(number % 10) && ![12, 13, 14].includes(number % 100)) return 'раза';
+  return 'раз';
+}
