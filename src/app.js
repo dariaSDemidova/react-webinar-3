@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import List from './components/list';
 import Controls from './components/controls';
 import Head from './components/head';
 import PageLayout from './components/page-layout';
+import ModalLayout from './components/modal-layout';
 import CartModal from './components/cart';
 
 /**
@@ -11,44 +12,31 @@ import CartModal from './components/cart';
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const [cart, setCart] = useState({ items: {}, totalPrice: 0 });
+  const [cart, setCart] = useState(store.getState().cart);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const list = store.getState().list;
 
 
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      setCart(store.getState().cart);
+    });
+    return () => unsubscribe();
+  }, [store]);
+
   const handleAddToCart = useCallback(
     (code, quantity) => {
-      const item = list.find(i => i.code === code);
-      const currentQuantity = cart.items[code]?.quantity || 0;
-      const newQuantity = currentQuantity + quantity;
-      const newTotalPrice = cart.totalPrice + item.price * quantity;
-
-      setCart(prevCart => ({
-        ...prevCart,
-        items: {
-          ...prevCart.items,
-          [code]: {
-            ...item,
-            quantity: newQuantity,
-          },
-        },
-        totalPrice: newTotalPrice,
-      }));
+      store.addItemToCart(code, quantity);
     },
-    [cart, list],
+    [store],
   );
 
-  const handleDeleteItem = (code) => {
-    const newItems = { ...cart.items };
-    const deletedItemPrice = newItems[code].price * newItems[code].quantity;
-    
-    delete newItems[code];
-    
-    setCart({
-      items: newItems,
-      totalPrice: cart.totalPrice - deletedItemPrice,
-    });
-  };
+  const handleDeleteItem = useCallback(
+    (code) => {
+      store.removeItemFromCart(code);
+    },
+    [store],
+  );
 
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
@@ -64,7 +52,11 @@ function App({ store }) {
         onOpenCart={openCart}
       />
       <List list={list} onAddToCart={handleAddToCart} />
-      {isCartOpen && <CartModal cart={cart} onClose={closeCart} onDelete={handleDeleteItem} />}
+      {isCartOpen && (
+        <ModalLayout onClose={closeCart}>
+          <CartModal cart={cart} onClose={closeCart} onDelete={handleDeleteItem} />
+        </ModalLayout>
+      )}
     </PageLayout>
   );
 }

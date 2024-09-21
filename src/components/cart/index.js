@@ -5,13 +5,14 @@ import CartList from '../cartList';
 import './style.css';
 
 function CartModal({ cart, onClose = () => {}, onDelete = () => {} }) {
+  const formatPrice = (price) => price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 });
   return (
     <div className="CartModal">
       <div className="CartModal-content">
         <CartHead onClose={onClose} />
         <CartList list={Object.values(cart.items)} onDeleteItem={onDelete} />
         <div className="CartModal-total">
-          Итого: {cart.totalPrice}₽
+          Итого: {formatPrice(cart.totalPrice)}
         </div>
       </div>
     </div>
