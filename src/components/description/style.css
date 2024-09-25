@@ -1,0 +1,37 @@
+.Description {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 40px;
+}
+
+.Description-description,
+.Description-country,
+.Description-category,
+.Description-edition {
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 20.7px;
+}
+
+.Description-country span,
+.Description-category span,
+.Description-edition span {
+    font-weight: 700;
+}
+
+
+
+.Description-price {
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 27.6px;
+}
+
+.Description-button {
+    width: 76px;
+    height: 21px;
+}
+
