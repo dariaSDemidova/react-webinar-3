@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { memo, useCallback, useEffect, useState } from 'react';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
+import MainMenu from '../../components/main-menu/main-menu';
 import BasketTool from '../../components/basket-tool';
 import useStore from '../../store/use-store';
 import Description from '../../components/description';
@@ -48,7 +49,10 @@ function Product() {
     return (
         <PageLayout>
             <Head title={product?.title || 'Название товара'} />
-            <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+            <div className='menu'>
+                <MainMenu /> 
+                <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+            </div>
             {product && <Description item={product} onAdd={callbacks.addToBasket} />}
         </PageLayout>
     );
