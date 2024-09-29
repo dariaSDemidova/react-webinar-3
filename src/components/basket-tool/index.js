@@ -1,17 +1,15 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import { Link } from 'react-router-dom';
 import { numberFormat, plural } from '../../utils';
+import MainMenu from '../main-menu/main-menu';
 import './style.css';
 
 function BasketTool({ sum, amount, onOpen }) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-      <Link to="/" className={cn('home')}>
-        Главная
-      </Link>
+      <MainMenu/>
       <span className={cn('label')}>В корзине:</span>
       <span className={cn('total')}>
         {amount

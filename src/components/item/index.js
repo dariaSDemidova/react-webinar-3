@@ -10,11 +10,12 @@ function Item(props) {
   const navigate = useNavigate();
 
   const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
+    onAdd: () => props.onAdd(props.item._id),
   };
 
   const handleItemClick = () => {
-    navigate(`/product/${props.item._id}`);
+    const productUrl = props.url || `/product/${props.item._id}`;
+    navigate(productUrl);
   };
 
   return (
@@ -36,10 +37,12 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  url: PropTypes.string,
 };
 
 Item.defaultProps = {
   onAdd: () => {},
+  url: '',
 };
 
 export default memo(Item);

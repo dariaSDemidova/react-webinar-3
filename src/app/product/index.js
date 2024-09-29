@@ -22,12 +22,16 @@ function Product() {
                 const data = await response.json();
                 console.log(data);
                 setProduct(data.result);
+                
+                if (!store.getState().catalog.list.some(item => item._id === data.result._id)) {
+                    store.getState().catalog.list.push(data.result);
+                }
             } catch (error) {
                 console.error(error.message);
             }
         }
         loadProduct();
-    }, [id]);
+    }, [id, store]);
 
     const select = useSelector(state => ({
         amount: state.basket.amount,
