@@ -1,12 +1,14 @@
 import { memo, useEffect, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './style.css';
 
 function Header() {
     const cn = bem('Header');
     const [username, setUsername] = useState('');
     const isAuthenticated = !!localStorage.getItem('token');
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const fetchUserProfile = async () => {
         const token = localStorage.getItem('token');
@@ -42,6 +44,10 @@ function Header() {
         window.location.reload();
     };
 
+    const handleLoginRedirect = () => {
+        navigate('/login', { state: { from: location.pathname } });
+    };
+
     return (
         <div className={cn()}>
             {isAuthenticated ? (
@@ -50,7 +56,7 @@ function Header() {
                     <button onClick={handleLogout}>Выход</button>
                 </div>
             ) : (
-                <Link to="/login" className={cn('button')}>Вход</Link>
+                <button onClick={handleLoginRedirect} className={cn('button')}>Вход</button>
             )}
         </div>
     );

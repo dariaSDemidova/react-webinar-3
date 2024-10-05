@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { cn as bem } from '@bem-react/classname';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './style.css';
 
 function Login() {
@@ -9,6 +9,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -24,16 +25,17 @@ function Login() {
             
             if (response.ok) {
                 localStorage.setItem('token', data.result.token);
-                navigate('/profile');
+                const redirectTo = location.state?.from || '/';
+                navigate(redirectTo); 
             } else {
-                setError('Ошибка авторизации');
+                setError(data.error.data.issues[0].message);
             }
         } catch (err) {
             console.error('Error details:', err);
             setError('Ошибка при подключении к серверу');
         }
     };
-    
+
     return (
         <form className={cn()} onSubmit={handleLogin}>
             <h2 className={cn('title')}>Вход</h2>

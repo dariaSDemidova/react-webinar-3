@@ -10,12 +10,17 @@
     font-size: 24px;
     font-weight: 700;
     line-height: 27.6px;
+    margin: 0;
 }
 
 .Login-input {
     display: flex;
     flex-direction: column;
     width: 203px;
+}
+
+.Login-input input {
+    height: 20px;
 }
 
 .Login-error {

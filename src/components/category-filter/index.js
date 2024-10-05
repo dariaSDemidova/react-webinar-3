@@ -33,7 +33,7 @@ function CategoryFilter({ value, onChange }) {
             categories
             .filter(cat => (cat.parent?._id || null) === parentId)
             .forEach(cat => {
-                formatted.push({ ...cat, title: `${'-'.repeat(level)} ${cat.title}` });
+                formatted.push({ ...cat, title: `${'- '.repeat(level)} ${cat.title}` });
                 buildHierarchy(cat._id, level + 1);
             });
         };

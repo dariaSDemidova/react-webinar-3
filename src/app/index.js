@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import useSelector from '../hooks/use-selector';
+import useSession from '../hooks/use-session';
 import Main from './main';
 import Basket from './basket';
 import Article from './article';
@@ -13,6 +14,11 @@ import User from './user';
  */
 function App() {
   const activeModal = useSelector(state => state.modals.name);
+  const { restoreSession } = useSession();
+
+  useEffect(() => {
+    restoreSession();
+  }, [restoreSession]);
 
   return (
     <>
