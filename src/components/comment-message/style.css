@@ -1,0 +1,21 @@
+.CommentMessage-enter {
+    color: #0087E9;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.4px;
+    text-decoration: underline;
+}
+
+.CommentMessage-cancel {
+    padding: 0;
+    color: #666666;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.4px;
+    text-decoration-line: underline;
+    cursor: pointer;
+    border: none;
+    background: none;
+}

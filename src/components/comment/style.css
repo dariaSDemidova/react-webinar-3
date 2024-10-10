@@ -1,0 +1,52 @@
+.Comment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Comment-name {
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 13.8px;
+    color: #000000;
+}
+
+.Comment-current-user {
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 13.8px;
+    color: #666666;
+}
+
+.Comment-date {
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 13.8px;
+    color: #666666;
+    margin-left: 10px;
+}
+
+.Comment-text {
+    margin: 0;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.1px;
+    color: #000000;
+}
+
+.Comment-button {
+    align-self: self-start;
+    padding: 0;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 13.8px;
+    color: #0087E9;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
