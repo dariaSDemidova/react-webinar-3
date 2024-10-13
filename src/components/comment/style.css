@@ -12,7 +12,7 @@
     color: #000000;
 }
 
-.Comment-current-user {
+.Comment-name_current-name {
     font-family: Arial;
     font-size: 12px;
     font-weight: 700;
@@ -36,6 +36,8 @@
     font-weight: 400;
     line-height: 16.1px;
     color: #000000;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .Comment-button {
